@@ -1,0 +1,37 @@
+package classwork;
+
+import java.util.Scanner;
+
+public class Substring {
+	public static int lengthOfLongestSubstring(String s) {
+		int[] lastIndex = new int[128];
+
+		for (int i = 0; i < 128; i++) {
+			lastIndex[i] = -1;
+		}
+
+		int maxLength = 0;
+		int left = 0;
+
+		for (int right = 0; right < s.length(); right++) {
+			char c = s.charAt(right);
+
+			if (lastIndex[c] >= left) {
+				left = lastIndex[c] + 1;
+			}
+
+			lastIndex[c] = right;
+
+			maxLength = Math.max(maxLength, right - left + 1);
+		}
+
+		return maxLength;
+	}
+
+	public static void main(String[] args) {
+		Scanner Sc = new Scanner(System.in);
+		String s = Sc.next();
+		System.out.println("Length of longest substring: " + lengthOfLongestSubstring(s));
+		Sc.close();
+	}
+}
