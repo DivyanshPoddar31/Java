@@ -1,0 +1,27 @@
+package org.example.dao;
+
+import jakarta.persistence.*;
+import org.example.entity.Order;
+
+public class OrderDAOImpl implements OrderDAO {
+
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("taskPU");
+    EntityManager em = emf.createEntityManager();
+
+    public void updateOrder(int id,int quantity){
+
+        em.getTransaction().begin();
+
+        Order order = em.find(Order.class,id);
+
+        if(order!=null){
+            order.setQuantity(quantity);
+        }
+
+        em.getTransaction().commit();
+    }
+
+    public Order getOrderById(int id){
+        return em.find(Order.class,id);
+    }
+}
